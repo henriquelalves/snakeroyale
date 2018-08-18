@@ -1,7 +1,7 @@
 {
-  "name": "BOILERPLATE",
+  "name": "SnakeRoyale.io",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Snake Battle-Royale game!",
   "scripts": {
     "start": "python jsonfy.py ./assets && budo src/main.js:bundle.js --live -- -d -e src/main.js -t [babelify --comments false --presets es2015]",
     "prebuild": "mkdirp build",
@@ -15,7 +15,7 @@
     "copy:plugins": "ncp plugins build/plugins/"
   },
   "keywords": [],
-  "author": "",
+  "author": "Henrique Alves",
   "license": "ISC",
   "dependencies": {
     "phaser": "^3.11.0"
