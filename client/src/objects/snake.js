@@ -1,3 +1,8 @@
+const UP = 0;
+const DOWN = 1;
+const LEFT = 2;
+const RIGHT = 3;
+
 class Snake {
     constructor(scene, x, y) {
         // super(scene);
@@ -128,3 +133,5 @@ class Snake {
         return grid;
     }
 }
+
+export default Snake;

@@ -1,9 +1,13 @@
 class SceneBoot extends Phaser.Scene {
-    constructor () {
-        super({key: "SceneBoot"});
+    constructor() {
+        super({ key: "SceneBoot" });
     }
 
-    create () {
+    preload() {
+        this.load.json('assetsData', 'assets.json');
+    }
+
+    create() {
         console.log(this.scene);
         this.scene.start("ScenePreload");
     }

@@ -16,3 +16,5 @@ class Food extends Phaser.GameObjects.Image {
         this.total++;
     }
 }
+
+export default Food;

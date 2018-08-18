@@ -1,16 +1,11 @@
-const UP = 0;
-const DOWN = 1;
-const LEFT = 2;
-const RIGHT = 3;
+import Snake from '../objects/snake';
+import Food from '../objects/food';
 
 class SceneGame extends Phaser.Scene {
     constructor() {
         super({ key: "SceneGame" });
     }
-    preload() {
-        this.load.image('food', 'assets/food.png');
-        this.load.image('body', 'assets/body.png');
-    }
+    
     create() {
         console.log("game");
 
