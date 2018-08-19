@@ -13,7 +13,13 @@ class SceneGame extends Phaser.Scene {
             console.log("Connected!");
         })
 
+        this.socket.on('game_update', this.onGameUpdate);
+
         this.cursors = this.input.keyboard.createCursorKeys();
+    }
+
+    onGameUpdate(state) {
+        console.log("OI ", state);
     }
 
     update(time, delta) {
