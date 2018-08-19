@@ -8,6 +8,12 @@ app.get('/', function(req, res){
 
 io.on('connection', function(socket){
     console.log('a user connected');
+    socket.on('disconnect', () => {
+        console.log("user disconnected!");
+    });
+    socket.on('keyboard', (key) => {
+        console.log('keyboard pressed! ', key)
+    })
 })
 
 http.listen(3000,function() {

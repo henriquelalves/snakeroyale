@@ -11,14 +11,15 @@
     "build:html": "htmlprocessor index.html -o build/index.html",
     "copy:all": "npm run copy:assets && npm run copy:phaser && npm run copy:plugins",
     "copy:assets": "ncp assets build/assets/ && python jsonfy.py assets/ && cp assets.json build/",
-    "copy:phaser": "ncp node_modules/phaser/dist/phaser.min.js build/phaser.min.js",
+    "copy:phaser": "ncp node_modules/phaser/dist/phaser.min.js build/phaser.min.js && ncp node_modules/socket.io-client/dist/socket.io.slim.js build/socket.io.slim.js",
     "copy:plugins": "ncp plugins build/plugins/"
   },
   "keywords": [],
   "author": "Henrique Alves",
   "license": "ISC",
   "dependencies": {
-    "phaser": "^3.11.0"
+    "phaser": "^3.11.0",
+    "socket.io": "^2.1.1"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",

@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>Boilerplate</title>
@@ -25,16 +26,20 @@
     url('assets/.ttf') format('opentype');
     }*/
   </style>
-  
+
   <!-- build:css main.min.css -->
   <link rel="stylesheet" href="css/main.css">
   <!-- /build -->
-  
+
 </head>
 
 <body>
 
   <div id="game_canvas" class="game"></div>
+  
+  <!-- build:js socket.io.slim.js-->
+  <script src="node_modules/socket.io-client/dist/socket.io.slim.js"></script>
+  <!-- /build -->
 
   <!-- build:js phaser.min.js -->
   <script src="node_modules/phaser/dist/phaser.min.js"></script>
@@ -45,5 +50,5 @@
   <!-- /build -->
 
 </body>
-</html>
 
+</html>
