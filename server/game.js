@@ -1,13 +1,14 @@
 // import Snake from '../objects/snake';
 // import Food from '../objects/food';
 
+const Snake = require('./objects/snake');
+const Food = require('./objects/food');
+
 class Game {
     constructor() {
         // super({ key: "SceneGame" });
-    }
-    
-    getState() {
-        return 10;
+        this.snake = new Snake(8, 8);
+        this.food = new Food(3, 4);
     }
 
     create() {
@@ -16,11 +17,25 @@ class Game {
         // this.snake = new Snake(this, 8, 8);
         // this.food = new Food(this, 3, 4);
         // this.cursors = this.input.keyboard.createCursorKeys();
-
-
     }
 
-    update(time, delta) {
+
+    getState() {
+        var data = [];
+        data = data.concat(this.snake.getPosData());
+        data = data.concat(this.food.getPosData());
+        return data;
+    }
+
+    update() {
+        if (!this.snake.alive) {
+            return;
+        }
+
+        this.snake.update();
+        if (this.snake.collideWithFood(this.food)) {
+            this.repositionFood();
+        }
         // if (!this.snake.alive) {
         //     return;
         // }
@@ -48,42 +63,43 @@ class Game {
     }
 
     repositionFood() {
-        // var testGrid = [];
+        var testGrid = [];
 
-        // for (var y = 0; y < 30; y++) {
-        //     testGrid[y] = [];
+        for (var y = 0; y < 30; y++) {
+            testGrid[y] = [];
 
-        //     for (var x = 0; x < 40; x++) {
-        //         testGrid[y][x] = true;
-        //     }
-        // }
+            for (var x = 0; x < 40; x++) {
+                testGrid[y][x] = true;
+            }
+        }
 
-        // this.snake.updateGrid(testGrid);
+        this.snake.updateGrid(testGrid);
 
-        // //  Purge out false positions
-        // var validLocations = [];
+        //  Purge out false positions
+        var validLocations = [];
 
-        // for (var y = 0; y < 30; y++) {
-        //     for (var x = 0; x < 40; x++) {
-        //         if (testGrid[y][x] === true) {
-        //             //  Is this position valid for food? If so, add it here ...
-        //             validLocations.push({ x: x, y: y });
-        //         }
-        //     }
-        // }
+        for (var y = 0; y < 30; y++) {
+            for (var x = 0; x < 40; x++) {
+                if (testGrid[y][x] === true) {
+                    //  Is this position valid for food? If so, add it here ...
+                    validLocations.push({ x: x, y: y });
+                }
+            }
+        }
 
-        // if (validLocations.length > 0) {
-        //     //  Use the RNG to pick a random food position
-        //     var pos = Phaser.Math.RND.pick(validLocations);
+        if (validLocations.length > 0) {
+            //  Use the RNG to pick a random food position
+            // var pos = Phaser.Math.RND.pick(validLocations);
+            var pos = {x: 10, y: 10};
 
-        //     //  And place it
-        //     this.food.setPosition(pos.x * 16, pos.y * 16);
+            //  And place it
+            this.food.setPosition(pos.x, pos.y);
 
-        //     return true;
-        // }
-        // else {
-        //     return false;
-        // }
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }
 

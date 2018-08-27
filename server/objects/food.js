@@ -1,15 +1,13 @@
-class Food extends Phaser.GameObjects.Image {
-    constructor(scene, x, y) {
-        super(scene);
-        this.scene = scene;
+const Tile = require('./tile')
 
-        this.setTexture('food');
-        this.setPosition(x * 16, y * 16);
-        this.setOrigin(0);
-
+class Food extends Tile {
+    constructor(x, y) {
+        super(x, y);
         this.total = 0;
+    }
 
-        this.scene.children.add(this);
+    getPosData() {
+        return [{x: this.x, y: this.y}];
     }
 
     eat() {
@@ -17,4 +15,4 @@ class Food extends Phaser.GameObjects.Image {
     }
 }
 
-export default Food;
+module.exports = Food;

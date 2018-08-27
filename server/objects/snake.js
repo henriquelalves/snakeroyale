@@ -1,37 +1,49 @@
+const Tile = require('./tile');
+
 const UP = 0;
 const DOWN = 1;
 const LEFT = 2;
 const RIGHT = 3;
 
 class Snake {
-    constructor(scene, x, y) {
+    constructor(x, y) {
         // super(scene);
-        console.log("NEW");
-        this.scene = scene;
+        // this.scene = scene;
 
-        this.headPosition = new Phaser.Geom.Point(x, y);
+        // this.headPosition = new Phaser.Geom.Point(x, y);
+        console.log("constructor: ", x, y);
+        this.body = [new Tile(x-1, y)]; // Group of tiles
+        this.head = new Tile(x, y);
+        this.tail = new Tile(x - 1, y);
+        console.log("constructor body: ", this.body[0].x, this.body[0].y);
 
-        this.body = this.scene.add.group();
+        // this.body = this.scene.add.group();
 
-        this.head = this.body.create(x * 16, y * 16, 'body');
-        this.head.setOrigin(0);
+        // this.head = this.body.create(x * 16, y * 16, 'body');
+        // this.head.setOrigin(0);
 
         this.alive = true;
-
         this.speed = 100;
-
         this.moveTime = 0;
 
-        this.tail = new Phaser.Geom.Point(x, y);
+        // this.tail = new Phaser.Geom.Point(x, y);
 
         this.heading = RIGHT;
         this.direction = RIGHT;
     }
 
-    update(time) {
-        if (time >= this.moveTime) {
-            return this.move(time);
+    getPosData() {
+        var data = [];
+        for (var i = 0; i < this.body.length; i++) {
+            data.push({ x: this.body[i].x, y: this.body[i].y });
         }
+        data.push({ x: this.head.x, y: this.head.y });
+        console.log("Snake: ", data);
+        return data;
+    }
+
+    update() {
+        this.move();
     }
 
     faceLeft() {
@@ -58,47 +70,75 @@ class Snake {
         }
     }
 
-    move(time) {
+    move() {
+        this.shiftPosition();
+
         switch (this.heading) {
+            
             case LEFT:
-                this.headPosition.x = Phaser.Math.Wrap(this.headPosition.x - 1, 0, 40);
+                // this.headPosition.x = Phaser.Math.Wrap(this.headPosition.x - 1, 0, 40);
+                this.head.x -= 1;
                 break;
 
             case RIGHT:
-                this.headPosition.x = Phaser.Math.Wrap(this.headPosition.x + 1, 0, 40);
+                // this.headPosition.x = Phaser.Math.Wrap(this.headPosition.x + 1, 0, 40);
+                this.head.x += 1;
                 break;
 
             case UP:
-                this.headPosition.y = Phaser.Math.Wrap(this.headPosition.y - 1, 0, 30);
+                // this.headPosition.y = Phaser.Math.Wrap(this.headPosition.y - 1, 0, 30);
+                this.head.y -= 1;
                 break;
 
             case DOWN:
-                this.headPosition.y = Phaser.Math.Wrap(this.headPosition.y + 1, 0, 30);
+                // this.headPosition.y = Phaser.Math.Wrap(this.headPosition.y + 1, 0, 30);
+                this.head.y += 1;
                 break;
         }
 
         this.direction = this.heading;
 
-        Phaser.Actions.ShiftPosition(this.body.getChildren(), this.headPosition.x * 16, this.headPosition.y * 16, 1, this.tail);
+        // Phaser.Actions.ShiftPosition(this.body.getChildren(), this.headPosition.x * 16, this.headPosition.y * 16, 1, this.tail);
 
-        var hitBody = Phaser.Actions.GetFirst(this.body.getChildren(), { x: this.head.x, y: this.head.y }, 1);
+        // var hitBody = Phaser.Actions.GetFirst(this.body.getChildren(), { x: this.head.x, y: this.head.y }, 1);
+        var hitBody = this.hasBodyHeadCollided();
 
-        if (hitBody) {
-            console.log('dead');
+        // if (hitBody) {
+        //     console.log('dead');
 
-            this.alive = false;
+        //     this.alive = false;
 
-            return false;
+        //     return false;
+        // }
+        // else {
+        //     return true;
+        // }
+    }
+
+    hasBodyHeadCollided() {
+        for (var i = 0; i < this.body.length; i++) {
+            if (this.body[i].x == this.head.x && this.body[i].y == this.head.y) {
+                return true;
+            }
         }
-        else {
-            this.moveTime = time + this.speed;
-            return true;
+        return false;
+    }
+
+    shiftPosition() {
+        this.tail.setPosition(this.body[this.body.length - 1].x, this.body[this.body.length - 1].y);
+
+        for (var i = this.body.length - 1; i >= 0; i--) {
+            if (i > 0) {
+                this.body[i].setPosition(this.body[i - 1].x, this.body[i - 1].y);
+            } else {
+                this.body[i].setPosition(this.head.x, this.head.y);
+            }
         }
     }
 
     grow() {
-        var newPart = this.body.create(this.tail.x, this.tail.y, 'body');
-        newPart.setOrigin(0);
+        var newPart = new Tile(this.tail.x, this.tail.y);
+        this.body.push(newPart);
     }
 
     collideWithFood(food) {
@@ -121,17 +161,11 @@ class Snake {
 
     updateGrid(grid) {
         //  Remove all body pieces from valid positions list
-        this.body.children.each(function (segment) {
-
-            var bx = segment.x / 16;
-            var by = segment.y / 16;
-
-            grid[by][bx] = false;
-
-        });
-
+        for (var i = 0; i < this.body.length; i++) {
+            grid[this.body[i].y][this.body[i].x] = false;
+        }
         return grid;
     }
 }
 
-export default Snake;
+module.exports = Snake;

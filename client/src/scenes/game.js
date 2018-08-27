@@ -5,7 +5,7 @@ class SceneGame extends Phaser.Scene {
     constructor() {
         super({ key: "SceneGame" });
     }
-    
+
     create() {
         // console.log("io: ", window.io());
         this.socket = window.io('localhost:3000');
@@ -13,13 +13,23 @@ class SceneGame extends Phaser.Scene {
             console.log("Connected!");
         })
 
-        this.socket.on('game_update', this.onGameUpdate);
+        this.imagesGroup = this.add.group();
+        console.log(this.imagesGroup);
+
+        var that = this;
+        this.socket.on('game_update', (state) => {
+            that.onGameUpdate(state);
+        });
 
         this.cursors = this.input.keyboard.createCursorKeys();
     }
 
     onGameUpdate(state) {
-        console.log("OI ", state);
+        this.imagesGroup.clear();
+        for (var pos in state) {
+            this.imagesGroup.create(state[pos].x * 16, state[pos].y * 16, 'body');
+        }
+        console.log(this.imagesGroup);
     }
 
     update(time, delta) {

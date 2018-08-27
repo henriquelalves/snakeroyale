@@ -24,8 +24,10 @@ io.on('connection', function (socket) {
 
 
     setInterval(() => {
+        game.update();
+        console.log(game.getState());
         socket.emit('game_update', game.getState());
-    }, 500);
+    }, 1000);
 })
 
 // Starting the server
