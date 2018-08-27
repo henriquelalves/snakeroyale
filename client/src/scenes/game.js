@@ -34,16 +34,16 @@ class SceneGame extends Phaser.Scene {
 
     update(time, delta) {
 
-        if (this.cursors.left.isDown) {
+        if (this.cursors.up.isDown) {
             this.socket.emit('keyboard', 0);
         }
-        else if (this.cursors.right.isDown) {
+        else if (this.cursors.down.isDown) {
             this.socket.emit('keyboard', 1);
         }
-        else if (this.cursors.up.isDown) {
+        else if (this.cursors.left.isDown) {
             this.socket.emit('keyboard', 2);
         }
-        else if (this.cursors.down.isDown) {
+        else if (this.cursors.right.isDown) {
             this.socket.emit('keyboard', 3);
         }
     }

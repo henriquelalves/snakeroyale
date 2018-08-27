@@ -32,8 +32,21 @@ class Game {
         delete this.snakes[player];
     }
 
-    sendToPlayers() {
-
+    playerInput(player, input) {
+        switch (input) {
+            case 0:
+                this.snakes[player].faceUp();
+                break;
+            case 1:
+                this.snakes[player].faceDown();
+                break;
+            case 2:
+                this.snakes[player].faceLeft();
+                break;
+            case 3:
+                this.snakes[player].faceRight();
+                break;
+        }
     }
 
     getState() {
@@ -48,10 +61,6 @@ class Game {
     }
 
     update() {
-        // if (!this.snake.alive) {
-        //     return;
-        // }
-
         this.snakes.forEach((snake) => {
             if (snake === null)
                 return;
@@ -74,6 +83,8 @@ class Game {
         }
 
         this.snakes.forEach((snake) => {
+            if (snake === null)
+                return;
             snake.updateGrid(testGrid);
         });
 

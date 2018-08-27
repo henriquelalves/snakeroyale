@@ -36,7 +36,7 @@ io.on('connection', function (socket) {
     });
 
     socket.on('keyboard', (key) => {
-        console.log('keyboard pressed! ', key)
+        game.playerInput(current_connections[socket.id].player, key);
     });
 })
 
