@@ -1,65 +1,65 @@
-// import Snake from '../objects/snake';
-// import Food from '../objects/food';
-
 const Snake = require('./objects/snake');
 const Food = require('./objects/food');
 
 class Game {
     constructor() {
-        // super({ key: "SceneGame" });
-        this.snake = new Snake(8, 8);
+        this.snakes = new Array(10);
+        this.snakes.fill(null);
+        console.log(this.snakes);
+        this.number_players = 0;
         this.food = new Food(3, 4);
     }
 
-    create() {
-        // console.log("game");
+    createPlayer() {
+        // Check if there is a maximum number of players
+        if (this.number_players === 10)
+            return -1
 
-        // this.snake = new Snake(this, 8, 8);
-        // this.food = new Food(this, 3, 4);
-        // this.cursors = this.input.keyboard.createCursorKeys();
+        // First open player slot
+        var i;
+        for (i = 0; i < this.snakes.length; i++) {
+            if (this.snakes[i] === null)
+                break
+        }
+
+        this.snakes[i] = new Snake(8, 8);
+        this.number_players += 1;
+        return i;
     }
 
+    removePlayer(player) {
+        this.number_players -= 1;
+        delete this.snakes[player];
+    }
+
+    sendToPlayers() {
+
+    }
 
     getState() {
         var data = [];
-        data = data.concat(this.snake.getPosData());
+        this.snakes.forEach((snake) => {
+            if (snake === null)
+                return;
+            data = data.concat(snake.getPosData());
+        })
         data = data.concat(this.food.getPosData());
         return data;
     }
 
     update() {
-        if (!this.snake.alive) {
-            return;
-        }
-
-        this.snake.update();
-        if (this.snake.collideWithFood(this.food)) {
-            this.repositionFood();
-        }
         // if (!this.snake.alive) {
         //     return;
         // }
 
-        // if (this.cursors.left.isDown) {
-        //     this.snake.faceLeft();
-        // }
-        // else if (this.cursors.right.isDown) {
-        //     this.snake.faceRight();
-        // }
-        // else if (this.cursors.up.isDown) {
-        //     this.snake.faceUp();
-        // }
-        // else if (this.cursors.down.isDown) {
-        //     this.snake.faceDown();
-        // }
-
-        // if (this.snake.update(time)) {
-        //     //  If the snake updated, we need to check for collision against food
-
-        //     if (this.snake.collideWithFood(this.food)) {
-        //         this.repositionFood();
-        //     }
-        // }
+        this.snakes.forEach((snake) => {
+            if (snake === null)
+                return;
+            snake.update();
+            if (snake.collideWithFood(this.food)) {
+                this.repositionFood();
+            }
+        });
     }
 
     repositionFood() {
@@ -73,7 +73,9 @@ class Game {
             }
         }
 
-        this.snake.updateGrid(testGrid);
+        this.snakes.forEach((snake) => {
+            snake.updateGrid(testGrid);
+        });
 
         //  Purge out false positions
         var validLocations = [];
@@ -90,7 +92,7 @@ class Game {
         if (validLocations.length > 0) {
             //  Use the RNG to pick a random food position
             // var pos = Phaser.Math.RND.pick(validLocations);
-            var pos = {x: 10, y: 10};
+            var pos = { x: 10, y: 10 };
 
             //  And place it
             this.food.setPosition(pos.x, pos.y);
@@ -104,5 +106,3 @@ class Game {
 }
 
 module.exports = Game;
-
-// export default Game;

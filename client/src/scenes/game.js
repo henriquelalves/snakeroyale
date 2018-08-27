@@ -25,7 +25,7 @@ class SceneGame extends Phaser.Scene {
     }
 
     onGameUpdate(state) {
-        this.imagesGroup.clear();
+        this.imagesGroup.clear(true, true);
         for (var pos in state) {
             this.imagesGroup.create(state[pos].x * 16, state[pos].y * 16, 'body');
         }
