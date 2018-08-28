@@ -8,7 +8,7 @@ class SceneGame extends Phaser.Scene {
 
     create() {
         // console.log("io: ", window.io());
-        this.socket = window.io('localhost:3000');
+        this.socket = window.io('https://secure-fjord-42060.herokuapp.com/');
         this.socket.on('connect', (socket) => {
             console.log("Connected!");
         })
