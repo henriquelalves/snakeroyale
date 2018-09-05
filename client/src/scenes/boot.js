@@ -4,7 +4,7 @@ class SceneBoot extends Phaser.Scene {
     }
 
     preload() {
-        this.load.json('assetsData', 'assets.json');
+        // this.load.json('assetsData', 'assets.json');
     }
 
     create() {

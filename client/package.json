@@ -17,6 +17,9 @@
   "author": "Henrique Alves",
   "license": "ISC",
   "dependencies": {
+    "emoji-dictionary": "^1.0.9",
+    "emoji-name-map": "^1.2.7",
+    "emoji-unicode-to-name": "^1.0.0",
     "phaser": "^3.11.0",
     "socket.io": "^2.1.1"
   },
