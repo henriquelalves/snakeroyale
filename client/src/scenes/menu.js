@@ -29,7 +29,8 @@ class SceneMenu extends Phaser.Scene {
     }
 
     onPlayButton() {
-        console.log("Play clicked");
+        console.log(this);
+        this.scene.start('SceneGame');
     }
 
     onStatisticsButton() {

@@ -6,38 +6,27 @@ const LEFT = 2;
 const RIGHT = 3;
 
 class Snake {
-    constructor(x, y) {
-        // super(scene);
-        // this.scene = scene;
+    constructor(game, x, y, direction) {
 
-        // this.headPosition = new Phaser.Geom.Point(x, y);
-        console.log("constructor: ", x, y);
-        this.body = [new Tile(x-1, y)]; // Group of tiles
+        this.game = game;
+        this.body = [new Tile(x - 1, y)]; // Group of tiles
         this.head = new Tile(x, y);
         this.tail = new Tile(x - 1, y);
-        console.log("constructor body: ", this.body[0].x, this.body[0].y);
-
-        // this.body = this.scene.add.group();
-
-        // this.head = this.body.create(x * 16, y * 16, 'body');
-        // this.head.setOrigin(0);
 
         this.alive = true;
         this.speed = 100;
         this.moveTime = 0;
 
-        // this.tail = new Phaser.Geom.Point(x, y);
-
-        this.heading = RIGHT;
-        this.direction = RIGHT;
+        this.heading = direction;
+        this.direction = direction;
     }
 
     getPosData() {
         var data = [];
         for (var i = 0; i < this.body.length; i++) {
-            data.push({ x: this.body[i].x, y: this.body[i].y });
+            data = data.concat([this.body[i].x, this.body[i].y]);
         }
-        data.push({ x: this.head.x, y: this.head.y });
+        data = data.concat([this.head.x, this.head.y]);
         console.log("Snake: ", data);
         return data;
     }
@@ -74,7 +63,7 @@ class Snake {
         this.shiftPosition();
 
         switch (this.heading) {
-            
+
             case LEFT:
                 // this.headPosition.x = Phaser.Math.Wrap(this.headPosition.x - 1, 0, 40);
                 this.head.x -= 1;

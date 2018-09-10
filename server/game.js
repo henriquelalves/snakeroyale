@@ -1,12 +1,19 @@
 const Snake = require('./objects/snake');
 const Food = require('./objects/food');
+const GameMath = require('./objects/math');
 
 class Game {
     constructor() {
+        // Game constants
+        this.BOARD_WIDTH = 20;
+        this.BOARD_HEIGHT = 10;
+
+        // Create snakes array
         this.snakes = new Array(10);
         this.snakes.fill(null);
-        console.log(this.snakes);
         this.number_players = 0;
+
+        // Food initial position
         this.food = new Food(3, 4);
     }
 
@@ -22,7 +29,7 @@ class Game {
                 break
         }
 
-        this.snakes[i] = new Snake(8, 8);
+        this.snakes[i] = new Snake(this, 8, 8, 3);
         this.number_players += 1;
         return i;
     }
@@ -30,6 +37,7 @@ class Game {
     removePlayer(player) {
         this.number_players -= 1;
         delete this.snakes[player];
+        this.snakes[player] = null;
     }
 
     playerInput(player, input) {
@@ -51,12 +59,24 @@ class Game {
 
     getState() {
         var data = [];
-        this.snakes.forEach((snake) => {
-            if (snake === null)
-                return;
-            data = data.concat(snake.getPosData());
-        })
-        data = data.concat(this.food.getPosData());
+        var d = null;
+        for (var i = 0; i < this.snakes.length; i += 1) {
+            if (this.snakes[i] === null) {
+                continue;
+            }
+            d = this.snakes[i].getPosData();
+            data = data.concat([i, d.length].concat(d));
+        }
+
+        // this.snakes.forEach((snake) => {
+        //     if (snake === null)
+        //         return;
+        //     data = data.concat(snake.getPosData());
+        // })
+
+
+        d = this.food.getPosData();
+        data = data.concat([-1, 2].concat(d));
         return data;
     }
 
@@ -103,7 +123,8 @@ class Game {
         if (validLocations.length > 0) {
             //  Use the RNG to pick a random food position
             // var pos = Phaser.Math.RND.pick(validLocations);
-            var pos = { x: 10, y: 10 };
+
+            var pos = { x: GameMath.between(0, this.BOARD_WIDTH), y: GameMath.between(0, this.BOARD_HEIGHT) };
 
             //  And place it
             this.food.setPosition(pos.x, pos.y);

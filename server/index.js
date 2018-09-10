@@ -7,12 +7,14 @@ var io = require('socket.io')(http);
 const Game = require('./game');
 var game = new Game();
 var current_connections = {};
+var current_players = new Array(10);
+current_players.fill(0);
 
 setInterval(() => {
     game.update();
     console.log(game.getState());
     for (var socket_id in current_connections) {
-        current_connections[socket_id].socket.emit('game_update', game.getState());
+        current_connections[socket_id].socket.emit('game-update', game.getState());
     }
 }, 1000);
 
@@ -24,17 +26,24 @@ app.get('/', function (req, res) {
 // Socket io
 io.on('connection', function (socket) {
     // Adding player to game
-    console.log('a user connected');
-    current_connections[socket.id] = {socket: socket, player: game.createPlayer()};
+    console.log('a user connected!');
+    current_connections[socket.id] = { socket: socket, player: game.createPlayer() };
+    current_players[current_connections[socket.id].player] = socket.handshake.query.skin;
 
+    // Send new skin-player table
+    io.emit('player-skins', current_players);
+
+    // If player disconnected
     socket.on('disconnect', () => {
         console.log("user disconnected!");
         // Removing player from game
         game.removePlayer(current_connections[socket.id].player);
+        current_players[current_connections[socket.id].player] = 0;
         delete current_connections[socket.id];
 
     });
 
+    // On player input
     socket.on('keyboard', (key) => {
         game.playerInput(current_connections[socket.id].player, key);
     });

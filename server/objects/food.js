@@ -7,7 +7,7 @@ class Food extends Tile {
     }
 
     getPosData() {
-        return [{x: this.x, y: this.y}];
+        return [this.x, this.y];
     }
 
     eat() {

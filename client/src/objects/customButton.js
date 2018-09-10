@@ -39,7 +39,7 @@ class CustomButton extends Phaser.GameObjects.Container {
         this.scene.tweens.add({ targets: this.list[0], y: 0, ease: 'Power1', duration: 100 });
 
         if (this.pressing) {
-            this.callback.call(this.bacllback_ctx);
+            this.callback.call(this.callback_ctx);
         }
     }
 }
