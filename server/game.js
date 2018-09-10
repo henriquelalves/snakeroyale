@@ -68,13 +68,6 @@ class Game {
             data = data.concat([i, d.length].concat(d));
         }
 
-        // this.snakes.forEach((snake) => {
-        //     if (snake === null)
-        //         return;
-        //     data = data.concat(snake.getPosData());
-        // })
-
-
         d = this.food.getPosData();
         data = data.concat([-1, 2].concat(d));
         return data;

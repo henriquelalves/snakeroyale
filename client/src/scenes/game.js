@@ -7,15 +7,14 @@ class SceneGame extends Phaser.Scene {
     }
 
     create() {
-        // this.socket = window.io('https://secure-fjord-42060.herokuapp.com/');
-
         // Sprite group for rendering
         this.imagesGroup = this.add.group();
         this.skins = new Array(10);
         console.log(this.imagesGroup);
 
         // Socket.io setup
-        this.socket = window.io('localhost:3000', { query: 'skin=000' + Math.floor(Math.random() * 10).toString() });
+        this.socket = window.io('https://secure-fjord-42060.herokuapp.com/', { query: 'skin=000' + Math.floor(Math.random() * 10).toString() });
+        // this.socket = window.io('localhost:3000', { query: 'skin=000' + Math.floor(Math.random() * 10).toString() });
         this.socket.on('connect', (socket) => {
             console.log("Connected!");
         })
@@ -26,7 +25,7 @@ class SceneGame extends Phaser.Scene {
         });
         this.socket.on('player-skins', (skins) => {
             that.onSkinsUpdate(skins);
-        })
+        });
 
         // Input
         this.cursors = this.input.keyboard.createCursorKeys();

@@ -13,19 +13,19 @@ class SceneMenu extends Phaser.Scene {
     create() {
         // this.scene.start('SceneGame');
         console.log("Menu");
-        
+
         // Scrolling background
-        this.background = this.add.tileSprite(window.innerWidth/2.0, window.innerHeight/2.0, window.innerWidth, window.innerHeight, 'grid');
+        this.background = this.add.tileSprite(window.innerWidth / 2.0, window.innerHeight / 2.0, window.innerWidth, window.innerHeight, 'grid');
         this.background.tileScaleX = 0.5;
         this.background.tileScaleY = 0.5;
 
         // Buttons
-        this.playButton = new CustomButton(this, window.innerWidth*0.5, window.innerHeight*0.4, ['menu', 'play_button'], ['menu', 'button_shadow'], this.onPlayButton, this);
-        this.playButton.setScale((window.innerWidth*0.4)/this.playButton.list[0].width)
-        this.statisticsButton = new CustomButton(this, window.innerWidth*0.5, window.innerHeight*0.6, ['menu', 'statistics_button'], ['menu', 'button_shadow'], this.onStatisticsButton, this);
-        this.statisticsButton.setScale((window.innerWidth*0.4)/this.playButton.list[0].width)
-        this.customizeButton = new CustomButton(this, window.innerWidth*0.5, window.innerHeight*0.8, ['menu', 'customize_button'], ['menu', 'button_shadow'], this.onCustomizeButton, this);
-        this.customizeButton.setScale((window.innerWidth*0.4)/this.playButton.list[0].width)
+        this.playButton = new CustomButton(this, window.innerWidth * 0.5, window.innerHeight * 0.4, ['menu', 'play_button'], ['menu', 'button_shadow'], this.onPlayButton, this);
+        this.playButton.setScale((window.innerWidth * 0.4) / this.playButton.list[0].width)
+        this.statisticsButton = new CustomButton(this, window.innerWidth * 0.5, window.innerHeight * 0.6, ['menu', 'statistics_button'], ['menu', 'button_shadow'], this.onStatisticsButton, this);
+        this.statisticsButton.setScale((window.innerWidth * 0.4) / this.playButton.list[0].width)
+        this.customizeButton = new CustomButton(this, window.innerWidth * 0.5, window.innerHeight * 0.8, ['menu', 'customize_button'], ['menu', 'button_shadow'], this.onCustomizeButton, this);
+        this.customizeButton.setScale((window.innerWidth * 0.4) / this.playButton.list[0].width)
     }
 
     onPlayButton() {
@@ -34,11 +34,18 @@ class SceneMenu extends Phaser.Scene {
     }
 
     onStatisticsButton() {
-        console.log("Statistics clicked");
+        // console.log("Statistics clicked");
+        window.FB.getLoginStatus(function (response) {
+            console.log(response);
+            window.FB.login();
+        });
     }
 
     onCustomizeButton() {
-        console.log("Customized clicked");
+        // console.log("Customized clicked");
+        FB.logout(function (response) {
+            console.log("byebye");
+        });
     }
 
     update(delta, deltaTime) {
