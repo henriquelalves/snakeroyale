@@ -43,7 +43,7 @@ class SceneMenu extends Phaser.Scene {
 
     onCustomizeButton() {
         // console.log("Customized clicked");
-        FB.logout(function (response) {
+        window.FB.logout(function (response) {
             console.log("byebye");
         });
     }

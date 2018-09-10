@@ -13,8 +13,8 @@ class SceneGame extends Phaser.Scene {
         console.log(this.imagesGroup);
 
         // Socket.io setup
-        this.socket = window.io('https://secure-fjord-42060.herokuapp.com/', { query: 'skin=000' + Math.floor(Math.random() * 10).toString() });
-        // this.socket = window.io('localhost:3000', { query: 'skin=000' + Math.floor(Math.random() * 10).toString() });
+        // this.socket = window.io('https://secure-fjord-42060.herokuapp.com/', { query: 'skin=000' + Math.floor(Math.random() * 10).toString() });
+        this.socket = window.io('localhost:3000', { query: 'skin=000' + Math.floor(Math.random() * 10).toString() });
         this.socket.on('connect', (socket) => {
             console.log("Connected!");
         })

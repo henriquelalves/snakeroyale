@@ -1,4 +1,5 @@
 const Tile = require('./tile');
+const GameMath = require('./math');
 
 const UP = 0;
 const DOWN = 1;
@@ -65,23 +66,23 @@ class Snake {
         switch (this.heading) {
 
             case LEFT:
-                // this.headPosition.x = Phaser.Math.Wrap(this.headPosition.x - 1, 0, 40);
-                this.head.x -= 1;
+                this.head.x = GameMath.wrap(this.head.x - 1, 0, this.game.BOARD_WIDTH);
+                // this.head.x -= 1;
                 break;
 
             case RIGHT:
-                // this.headPosition.x = Phaser.Math.Wrap(this.headPosition.x + 1, 0, 40);
-                this.head.x += 1;
+                this.head.x = GameMath.wrap(this.head.x + 1, 0, this.game.BOARD_WIDTH);
+                // this.head.x += 1;
                 break;
 
             case UP:
-                // this.headPosition.y = Phaser.Math.Wrap(this.headPosition.y - 1, 0, 30);
-                this.head.y -= 1;
+                this.head.y = GameMath.wrap(this.head.y - 1, 0, this.game.BOARD_HEIGHT);
+                // this.head.y -= 1;
                 break;
 
             case DOWN:
-                // this.headPosition.y = Phaser.Math.Wrap(this.headPosition.y + 1, 0, 30);
-                this.head.y += 1;
+                this.head.y = GameMath.wrap(this.head.y + 1, 0, this.game.BOARD_HEIGHT);
+                // this.head.y += 1;
                 break;
         }
 
