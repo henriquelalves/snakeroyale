@@ -15,8 +15,6 @@ class Snake {
         this.tail = new Tile(x - 1, y);
 
         this.alive = true;
-        this.speed = 100;
-        this.moveTime = 0;
 
         this.heading = direction;
         this.direction = direction;
@@ -34,6 +32,21 @@ class Snake {
 
     update() {
         this.move();
+    }
+
+    getHeadKey() {
+        return this.head.x.toString() + ":" + this.head.y.toString();
+    }
+
+    fill(map) {
+        this.body.forEach((tile) => {
+            var key = tile.x.toString() + ":" + tile.y.toString();
+            if (map[key] === undefined) {
+                map[key] = 1;
+            } else {
+                map[key] += 1;
+            }
+        })
     }
 
     faceLeft() {
@@ -136,11 +149,6 @@ class Snake {
             this.grow();
 
             food.eat();
-
-            //  For every 5 items of food eaten we'll increase the snake speed a little
-            if (this.speed > 20 && food.total % 5 === 0) {
-                this.speed -= 5;
-            }
 
             return true;
         }

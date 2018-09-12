@@ -15,6 +15,9 @@ class Game {
 
         // Food initial position
         this.food = new Food(3, 4);
+
+        // Collision map
+        this.map = [];
     }
 
     createPlayer() {
@@ -58,6 +61,8 @@ class Game {
     }
 
     getState() {
+        // Get array of data numbers
+        // Array is made like this: [player (11 if food), number of positions, x1, y1, x2, y2, ..., player2, number of positions2, etc]
         var data = [];
         var d = null;
         for (var i = 0; i < this.snakes.length; i += 1) {
@@ -69,19 +74,52 @@ class Game {
         }
 
         d = this.food.getPosData();
-        data = data.concat([-1, 2].concat(d));
-        return data;
+        data = data.concat([11, 2].concat(d));
+
+        // Compact array by concatenating each number in 8 bits inside a integer
+        // JAVASCRIPT CAST NUMBERS TO 32bits IN BIT OPERATIONS!
+        console.log(data);
+        var compact_data = [];
+        var data_index = data.length - 1
+        while(data_index >= 0) {
+            var i = 0;
+            var d = 0;
+            while (i < 4) {
+                if (data_index < 0){
+                    break;
+                }
+                d += (data[data_index] << (i*8));
+                i += 1;
+                data_index -= 1;
+            }
+            compact_data.unshift(d);
+        }
+        
+        // console.log(compact_data);
+
+        return compact_data;
     }
 
     update() {
+        this.map = [];
         this.snakes.forEach((snake) => {
             if (snake === null)
                 return;
             snake.update();
+            snake.fill(this.map);
             if (snake.collideWithFood(this.food)) {
                 this.repositionFood();
             }
         });
+
+        for (var i = 0; i < this.snakes.length; i += 1) {
+            if (this.snakes[i] === null) {
+                continue;
+            }
+            if (this.map[this.snakes[i].getHeadKey()]) {
+                console.log("Player " + i.toString() + " is dead.");
+            }
+        }
     }
 
     repositionFood() {

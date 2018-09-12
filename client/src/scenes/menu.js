@@ -1,4 +1,3 @@
-import CustomButtom from '../objects/customButton';
 import CustomButton from '../objects/customButton';
 
 class SceneMenu extends Phaser.Scene {
