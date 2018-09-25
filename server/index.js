@@ -7,8 +7,10 @@ var io = require('socket.io')(http);
 const Game = require('./game');
 var game = new Game();
 var current_connections = {};
-var current_players = new Array(10);
-current_players.fill(0);
+var players_skins = new Array(10);
+players_skins.fill(0);
+var players_sockets = new Array(10);
+players_sockets.fill(0);
 
 setInterval(() => {
     game.update();
@@ -16,6 +18,12 @@ setInterval(() => {
     for (var socket_id in current_connections) {
         current_connections[socket_id].socket.emit('game-update', game.getState());
     }
+    for (var i = 0; i < game.dead_players.length; i+=1) {
+        players_sockets[game.dead_players[i]].emit('player-died');
+        // game.removePlayer(i);
+        game.dead_players.splice(0,1);
+    }
+
 }, 1000);
 
 // HTTP page
@@ -28,17 +36,19 @@ io.on('connection', function (socket) {
     // Adding player to game
     console.log('a user connected!');
     current_connections[socket.id] = { socket: socket, player: game.createPlayer() };
-    current_players[current_connections[socket.id].player] = socket.handshake.query.skin;
+    players_skins[current_connections[socket.id].player] = socket.handshake.query.skin;
+    players_sockets[current_connections[socket.id].player] = socket;
 
     // Send new skin-player table
-    io.emit('player-skins', current_players);
+    io.emit('player-skins', players_skins);
 
     // If player disconnected
     socket.on('disconnect', () => {
         console.log("user disconnected!");
         // Removing player from game
         game.removePlayer(current_connections[socket.id].player);
-        current_players[current_connections[socket.id].player] = 0;
+        players_skins[current_connections[socket.id].player] = 0;
+        players_sockets[current_connections[socket.id].player] = 0;
         delete current_connections[socket.id];
 
     });

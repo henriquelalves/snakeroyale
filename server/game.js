@@ -18,6 +18,9 @@ class Game {
 
         // Collision map
         this.map = [];
+
+        // Dead players
+        this.dead_players = [];
     }
 
     createPlayer() {
@@ -118,6 +121,7 @@ class Game {
             }
             if (this.map[this.snakes[i].getHeadKey()]) {
                 console.log("Player " + i.toString() + " is dead.");
+                this.dead_players.push(i);
             }
         }
     }

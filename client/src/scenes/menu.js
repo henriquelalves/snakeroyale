@@ -74,7 +74,6 @@ class SceneMenu extends Phaser.Scene {
 
     onPlayButton() {
         window.ga('send', 'event', 'Menu', 'PlayButton');
-
         this.scene.start('SceneGame');
     }
 

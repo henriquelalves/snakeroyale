@@ -34,6 +34,9 @@ class SceneGame extends Phaser.Scene {
         this.socket.on('player-skins', (skins) => {
             that.onSkinsUpdate(skins);
         });
+        this.socket.on('player-died', () => {
+            that.onPlayerDied();
+        })
 
         // Input
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -59,6 +62,11 @@ class SceneGame extends Phaser.Scene {
                 this.socket.emit('keyboard', 0);
             }
         }
+    }
+
+    onPlayerDied() {
+        this.socket.disconnect();
+        this.scene.start('SceneMenu');
     }
 
     onSkinsUpdate(skins) {
