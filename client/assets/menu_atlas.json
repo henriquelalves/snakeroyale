@@ -1,33 +1,33 @@
 {
   "frames": {
-    "button_shadow": {
+    "facebook_panel": {
       "frame": {
         "x": 1,
         "y": 1,
-        "w": 718,
-        "h": 149
+        "w": 1613,
+        "h": 1364
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 718,
-        "h": 149
+        "w": 1613,
+        "h": 1364
       },
       "sourceSize": {
-        "w": 718,
-        "h": 149
+        "w": 1613,
+        "h": 1364
       },
       "pivot": {
         "x": 0.5,
         "y": 0.5
       }
     },
-    "statistics_button": {
+    "button_shadow": {
       "frame": {
-        "x": 721,
-        "y": 1,
+        "x": 1,
+        "y": 1367,
         "w": 718,
         "h": 149
       },
@@ -51,7 +51,55 @@
     "customize_button": {
       "frame": {
         "x": 1,
-        "y": 152,
+        "y": 1518,
+        "w": 718,
+        "h": 149
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 718,
+        "h": 149
+      },
+      "sourceSize": {
+        "w": 718,
+        "h": 149
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "nah_button": {
+      "frame": {
+        "x": 1,
+        "y": 1669,
+        "w": 718,
+        "h": 149
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 718,
+        "h": 149
+      },
+      "sourceSize": {
+        "w": 718,
+        "h": 149
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "ohyeah_button": {
+      "frame": {
+        "x": 1,
+        "y": 1820,
         "w": 718,
         "h": 149
       },
@@ -75,7 +123,7 @@
     "play_button": {
       "frame": {
         "x": 721,
-        "y": 152,
+        "y": 1367,
         "w": 718,
         "h": 149
       },
@@ -96,24 +144,24 @@
         "y": 0.5
       }
     },
-    "title": {
+    "statistics_button": {
       "frame": {
-        "x": 1,
-        "y": 303,
-        "w": 643,
-        "h": 439
+        "x": 721,
+        "y": 1518,
+        "w": 718,
+        "h": 149
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 643,
-        "h": 439
+        "w": 718,
+        "h": 149
       },
       "sourceSize": {
-        "w": 643,
-        "h": 439
+        "w": 718,
+        "h": 149
       },
       "pivot": {
         "x": 0.5,
@@ -124,11 +172,11 @@
   "meta": {
     "app": "http://free-tex-packer.com/",
     "version": "0.3.3",
-    "image": "texture.png",
+    "image": "menu_atlas.png",
     "format": "RGBA8888",
     "size": {
-      "w": 1440,
-      "h": 743
+      "w": 1615,
+      "h": 1970
     },
     "scale": 1
   }

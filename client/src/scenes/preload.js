@@ -4,6 +4,7 @@ class ScenePreload extends Phaser.Scene {
     }
 
     preload() {
+
         this.load.atlas('emoji', 'assets/emoji_atlas.png', 'assets/emoji_atlas.json');
         this.load.atlas('menu', 'assets/menu_atlas.png', 'assets/menu_atlas.json');
         this.load.image('body', 'assets/body.png');
@@ -14,6 +15,9 @@ class ScenePreload extends Phaser.Scene {
     }
 
     create() {
+        // Analytics
+        window.ga('send', 'pageview', 'preload');
+
         this.scene.start('SceneMenu');
     }
 }

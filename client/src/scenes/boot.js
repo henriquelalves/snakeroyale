@@ -4,11 +4,13 @@ class SceneBoot extends Phaser.Scene {
     }
 
     preload() {
-        // this.load.json('assetsData', 'assets.json');
+        // Should load loading screen sprite
     }
 
     create() {
-        console.log(this.scene);
+        // Analytics
+        window.ga('send', 'pageview', 'boot');
+
         this.scene.start("ScenePreload");
     }
 }

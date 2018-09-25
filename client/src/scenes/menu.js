@@ -10,8 +10,18 @@ class SceneMenu extends Phaser.Scene {
     }
 
     create() {
-        // this.scene.start('SceneGame');
-        console.log("Menu");
+        // Analytics
+        window.ga('send', 'pageview', 'menu');
+
+        var that = this;
+
+        // Facebook login variable TODO: Should be global!
+        this.fb_is_logged_in = false;
+        window.FB.getLoginStatus(function (response) {
+            if (response === "connected") {
+                that.fb_is_logged_in = true;
+            }
+        })
 
         // Scrolling background
         this.background = this.add.tileSprite(window.innerWidth / 2.0, window.innerHeight / 2.0, window.innerWidth, window.innerHeight, 'grid');
@@ -25,26 +35,78 @@ class SceneMenu extends Phaser.Scene {
         this.statisticsButton.setScale((window.innerWidth * 0.4) / this.playButton.list[0].width)
         this.customizeButton = new CustomButton(this, window.innerWidth * 0.5, window.innerHeight * 0.8, ['menu', 'customize_button'], ['menu', 'button_shadow'], this.onCustomizeButton, this);
         this.customizeButton.setScale((window.innerWidth * 0.4) / this.playButton.list[0].width)
+
+        // Facebook popup
+        this.fb_panel = this.add.sprite(window.innerWidth * 0.5, window.innerHeight * 0.5, 'menu', 'facebook_panel');
+        var min_scale = Math.min((window.innerWidth * 0.9) / this.fb_panel.width, (window.innerHeight * 0.9) / this.fb_panel.height);
+        this.fb_panel.setScale(min_scale);
+
+        this.ohyeah = new CustomButton(this, (window.innerWidth * 0.5) + this.fb_panel.width * min_scale * 0.25, (window.innerHeight * 0.5) + (this.fb_panel.height * min_scale * 0.35), ['menu', 'ohyeah_button'], ['menu', 'button_shadow'], this.onFbAccept, this);
+        this.ohyeah.setScale((this.fb_panel.width * min_scale * 0.4) / this.ohyeah.list[0].width);
+
+        this.nah = new CustomButton(this, (window.innerWidth * 0.5) - this.fb_panel.width * min_scale * 0.25, (window.innerHeight * 0.5) + (this.fb_panel.height * min_scale * 0.35), ['menu', 'nah_button'], ['menu', 'button_shadow'], this.onFbReject, this);
+        this.nah.setScale((this.fb_panel.width * min_scale * 0.4) / this.nah.list[0].width);
+
+        this.fb_popup = this.add.container(0,0,[this.fb_panel, this.ohyeah, this.nah]);
+        this.fb_popup.alpha = 0.0;
+        this.fb_popup.x = window.innerWidth;
+    }
+
+    popup() {
+        this.fb_popup.x = 0;
+        this.tweens.add({ targets: this.fb_popup, alpha: 1.0, ease: 'Power1', duration: 300 });
+    }
+
+    popdown() {
+        var that = this.fb_popup;
+        this.tweens.add({ targets: this.fb_popup, alpha: 0.0, ease: 'Power1', duration: 300, onComplete: function() {that.x = window.innerWidth;} });
+    }
+
+    onFbAccept() {
+        window.ga('send', 'event', 'Menu', 'FacebookAcceptButton');
+        window.FB.login();
+    }
+
+    onFbReject() {
+        window.ga('send', 'event', 'Menu', 'FacebookRejectButton');
+        this.popdown();
     }
 
     onPlayButton() {
-        console.log(this);
+        window.ga('send', 'event', 'Menu', 'PlayButton');
+
         this.scene.start('SceneGame');
     }
 
     onStatisticsButton() {
+        window.ga('send', 'event', 'Menu', 'StatisticsButton');
+
+        if (this.fb_is_logged_in === false) {
+            this.popup();
+        } else {
+            // do something
+        }
+
         // console.log("Statistics clicked");
-        window.FB.getLoginStatus(function (response) {
-            console.log(response);
-            window.FB.login();
-        });
+        // window.FB.getLoginStatus(function (response) {
+        //     console.log(response);
+        //     window.FB.login();
+        // });
     }
 
     onCustomizeButton() {
+        window.ga('send', 'event', 'Menu', 'CustomizeButton');
+
+        if (this.fb_is_logged_in === false) {
+            this.popup();
+        } else {
+            // do something
+        }
+
         // console.log("Customized clicked");
-        window.FB.logout(function (response) {
-            console.log("byebye");
-        });
+        // window.FB.logout(function (response) {
+        //     console.log("byebye");
+        // });
     }
 
     update(delta, deltaTime) {
