@@ -25,7 +25,7 @@ class Game {
 
     createPlayer() {
         // Check if there is a maximum number of players
-        if (this.number_players === 10)
+        if (this.number_players === 10) // FIXME 10 is not the maximum number of players anymore, is it?
             return -1
 
         // First open player slot
@@ -35,7 +35,7 @@ class Game {
                 break
         }
 
-        this.snakes[i] = new Snake(this, 8, 8, 3);
+        this.snakes[i] = new Snake(this, 8, 2*i, 3);
         this.number_players += 1;
         return i;
     }
