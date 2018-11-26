@@ -24,10 +24,34 @@
         "y": 0.5
       }
     },
-    "button_shadow": {
+    "title": {
       "frame": {
         "x": 1,
         "y": 1367,
+        "w": 643,
+        "h": 439
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 643,
+        "h": 439
+      },
+      "sourceSize": {
+        "w": 643,
+        "h": 439
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "button_shadow": {
+      "frame": {
+        "x": 1,
+        "y": 1808,
         "w": 718,
         "h": 149
       },
@@ -50,7 +74,31 @@
     },
     "customize_button": {
       "frame": {
-        "x": 1,
+        "x": 646,
+        "y": 1367,
+        "w": 718,
+        "h": 149
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 718,
+        "h": 149
+      },
+      "sourceSize": {
+        "w": 718,
+        "h": 149
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "logout_button": {
+      "frame": {
+        "x": 646,
         "y": 1518,
         "w": 718,
         "h": 149
@@ -74,7 +122,7 @@
     },
     "nah_button": {
       "frame": {
-        "x": 1,
+        "x": 721,
         "y": 1669,
         "w": 718,
         "h": 149
@@ -98,7 +146,7 @@
     },
     "ohyeah_button": {
       "frame": {
-        "x": 1,
+        "x": 721,
         "y": 1820,
         "w": 718,
         "h": 149
@@ -122,7 +170,7 @@
     },
     "play_button": {
       "frame": {
-        "x": 721,
+        "x": 1366,
         "y": 1367,
         "w": 718,
         "h": 149
@@ -146,7 +194,7 @@
     },
     "statistics_button": {
       "frame": {
-        "x": 721,
+        "x": 1366,
         "y": 1518,
         "w": 718,
         "h": 149
@@ -175,7 +223,7 @@
     "image": "menu_atlas.png",
     "format": "RGBA8888",
     "size": {
-      "w": 1615,
+      "w": 2085,
       "h": 1970
     },
     "scale": 1

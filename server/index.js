@@ -1,10 +1,77 @@
 // Libs
-var app = require('express')();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+const express = require('express');
+const app = require('express')();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 const Game = require('./game');
+const MongoClient = require('mongodb').MongoClient;
+const assert = require('assert');
 
+app.set('port', (process.env.PORT || 3000))
+app.use(express.static(__dirname + "/public"));
+
+// ================================== MONGODB =========================================
+// MongoDb setup
+const dburl = 'mongodb://admin:admin0@ds139243.mlab.com:39243/snakeroyale';
+const dbname = 'snakeroyale';
+
+MongoClient.connect(dburl, (err, client) => {
+    assert.equal(null, err);
+    console.log("Connected successfully to the server");
+
+    const db = client.db(dbname);
+
+    insertDocuments(db, function () {
+        client.close();
+    });
+})
+
+const insertDocuments = function (db, callback) {
+    // Get users collection
+    const collection = db.collection('users');
+
+    // Insert some documents
+    collection.insertMany([
+        { fb_id: 1, skins: [1, 2, 3] }, { fb_id: 2, skins: [1, 2, 3] }, { fb_id: 3, skins: [1, 2, 3] }
+    ], function (err, result) {
+        assert.equal(err, null);
+        console.log("Inserted 3 documents into the collection");
+        callback(result);
+    });
+}
+
+var check_player_skin = function (id, callback) {
+    MongoClient.connect(dburl, (err, client) => {
+        assert.equal(null, err);
+        console.log("Connected successfully to the server");
+
+        const db = client.db(dbname);
+
+        // Get the documents collection
+        const collection = db.collection('users');
+        // Find some documents
+        collection.find({ 'fb_id': id }).toArray(function (err, docs) {
+            console.log("Found the following records");
+            console.log(docs);
+            callback(docs);
+        });
+    })
+    // const db = client.db(dbname);
+
+    // // Get the documents collection
+    // const collection = db.collection('users');
+    // // Find some documents
+    // collection.find({ 'fb_id': id }).toArray(function (err, docs) {
+    //     console.log("Found the following records");
+    //     console.log(docs);
+    //     callback(docs);
+    // });
+}
+
+// ========================================== GAME =============================================
 // Rooms
+const MAX_PLAYERS = 1;
+
 var rooms = [];
 
 var Room = function () {
@@ -37,34 +104,7 @@ var createRoom = function () {
     }, 1000);
 }
 
-// Game
-
-// var game = new Game();
-// var current_connections = {};
-// var players_skins = new Array(10);
-// players_skins.fill(0);
-// var players_sockets = new Array(10);
-// players_sockets.fill(0);
-
-// setInterval(() => {
-//     game.update();
-//     console.log(game.getState());
-//     for (var socket_id in current_connections) {
-//         current_connections[socket_id].socket.emit('game-update', game.getState());
-//     }
-//     for (var i = 0; i < game.dead_players.length; i += 1) {
-//         players_sockets[game.dead_players[i]].emit('player-died');
-//         // game.removePlayer(i);
-//         game.dead_players.splice(0, 1);
-//     }
-
-// }, 1000);
-
-// HTTP page
-app.get('/', function (req, res) {
-    res.send('<h1>Hello world</h1>');
-})
-
+// ================================================ SOCKET IO ====================================================
 // Socket io
 io.on('connection', function (socket) {
     // Check if it needs another room
@@ -101,12 +141,32 @@ io.on('connection', function (socket) {
     });
 
     // Check if room should start
-    if (room.number_of_players === 4) {
+    if (room.number_of_players === MAX_PLAYERS) {
         room.began = true;
     }
 })
 
+// ================================================ SERVER ====================================================
+
+// // HTTP page
+// app.get('/', function (req, res) {
+//     res.send('<h1>Hello world</h1>');
+// })
+
+// Check skins
+app.get('/userskin/:id', function (req, res) {
+    console.log("ID being requested: ", req.params.id);
+    check_player_skin(req.params.id, function (docs) {
+        res.end(JSON.stringify(docs));
+    });
+})
+
+// HTTP page
+app.get('/', function (req, res) {
+    res.sendFile(__dirname + "/index.html");
+})
+
 // Starting the server
-http.listen(3000, function () {
+http.listen(app.get('port'), function () {
     console.log('listening on *:3000');
 })

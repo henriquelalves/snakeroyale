@@ -17,7 +17,15 @@
    sodipodi:docname="snakeroyaleui.svg"
    inkscape:version="0.92.3 (2405546, 2018-03-11)">
   <defs
-     id="defs2" />
+     id="defs2">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath16">
+      <path
+         d="M 0,38 38,38 38,0 0,0 0,38 Z"
+         id="path18" />
+    </clipPath>
+  </defs>
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -26,8 +34,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.25000001"
-     inkscape:cx="-4793.1922"
-     inkscape:cy="413.23161"
+     inkscape:cx="-4424.08"
+     inkscape:cy="50.30813"
      inkscape:document-units="mm"
      inkscape:current-layer="g110"
      showgrid="false"
@@ -1487,6 +1495,104 @@
          d="m 19.24,2.396 c 0.042,-0.521 0.593,-0.727 1.146,-0.708 0,0 5.456,0.311 7.521,1.271 C 30.522,4.174 32,6.625 32,6.625 H 27 C 27,6.625 25.917,5.104 25.062,4.5 24.181,3.877 20.84,3.285 20.343,3.188 19.846,3.091 19.198,2.917 19.24,2.396 Z m -2.48,0 C 16.718,1.875 16.167,1.669 15.614,1.688 c 0,0 -5.456,0.311 -7.521,1.271 C 5.478,4.174 4,6.625 4,6.625 H 9 C 9,6.625 10.083,5.104 10.938,4.5 11.819,3.877 15.16,3.285 15.657,3.188 16.153,3.09 16.802,2.917 16.76,2.396 Z"
          inkscape:connector-curvature="0"
          style="fill:#ffdc5d" />
+    </g>
+    <rect
+       id="rect102-2-3-0-3"
+       width="380"
+       height="78.898323"
+       x="-1370.7258"
+       y="566.37244"
+       style="display:inline;fill:#4d4d4d;stroke-width:0.29581907"
+       ry="30.994864"
+       inkscape:export-filename="/home/peronio/Pictures/snakeroyaledesign/menu/logout_button.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       ry="30.994864"
+       style="display:inline;fill:#ff5555;fill-opacity:1;stroke-width:0.29581907"
+       y="557.27081"
+       x="-1371.4742"
+       height="78.898323"
+       width="380"
+       id="rect104-9-6-9-6"
+       inkscape:export-filename="/home/peronio/Pictures/snakeroyaledesign/menu/logout_button.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       id="text108-1-7-3-7"
+       y="609.29974"
+       x="-1223.4917"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.16666603px;line-height:1.25;font-family:'URW Gothic L';-inkscape-font-specification:'URW Gothic L';letter-spacing:0px;word-spacing:0px;display:inline;fill:#333333;fill-opacity:1;stroke:none;stroke-width:0.52916664"
+       xml:space="preserve"
+       inkscape:export-filename="/home/peronio/Pictures/snakeroyaledesign/menu/logout_button.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50.79999924px;font-family:'URW Gothic L';-inkscape-font-specification:'URW Gothic L';fill:#ffffff;stroke-width:0.52916664"
+         y="609.29974"
+         x="-1223.4917"
+         id="tspan106-2-5-6-5"
+         sodipodi:role="line">logout</tspan></text>
+    <g
+       id="g10"
+       transform="matrix(1.8612184,0,0,-1.8612184,-1347.7347,632.89072)"
+       inkscape:export-filename="/home/peronio/Pictures/snakeroyaledesign/menu/logout_button.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <g
+         id="g12">
+        <g
+           id="g14"
+           clip-path="url(#clipPath16)">
+          <g
+             id="g20"
+             transform="translate(34.3047,19.6636)">
+            <path
+               d="M 0,0 C 0,0 1.132,1.65 -0.519,2.781 -2.168,3.912 -3.299,2.262 -3.299,2.262 L -8.55,-5.396 c -0.18,0.302 -0.379,0.6 -0.599,0.894 l 7.288,10.629 c 0,0 1.131,1.649 -0.519,2.78 -1.649,1.132 -2.78,-0.518 -2.78,-0.518 l -6.856,-9.997 c -0.255,0.209 -0.515,0.417 -0.785,0.622 l 7.947,11.59 c 0,0 1.131,1.649 -0.518,2.78 -1.649,1.132 -2.78,-0.518 -2.78,-0.518 L -16.1,1.277 c -0.292,0.18 -0.581,0.335 -0.87,0.498 l 7.427,10.832 c 0,0 1.131,1.649 -0.519,2.78 -1.649,1.132 -2.78,-0.518 -2.78,-0.518 L -20.696,3.416 -21.325,2.498 -21.89,1.673 c 4.948,-3.393 5.419,-9.779 2.592,-13.902 -0.566,-0.825 -1.39,-0.26 -1.39,-0.26 3.393,4.949 2.356,10.51 -2.593,13.903 l 1.462,7.302 c 0,0 0.545,1.925 -1.379,2.47 -1.924,0.545 -2.469,-1.379 -2.469,-1.379 l -1.685,-5.004 c -0.668,-1.984 -1.379,-3.961 -2.32,-5.83 -2.657,-5.28 -1.07,-11.843 3.941,-15.279 5.465,-3.747 12.935,-2.355 16.683,3.11 0.198,0.29 0.364,0.573 0.522,0.856 l 0.044,-0.031 z"
+               style="fill:#d99e82;fill-opacity:1;fill-rule:nonzero;stroke:none"
+               id="path22"
+               inkscape:connector-curvature="0"
+               inkscape:export-filename="/home/peronio/Pictures/snakeroyaledesign/menu/logout_button.png"
+               inkscape:export-xdpi="96"
+               inkscape:export-ydpi="96" />
+          </g>
+          <g
+             id="g24"
+             transform="translate(3.0415,30)">
+            <path
+               d="m 0,0 h -2 c 0,3.837 3.122,6.958 6.958,6.958 v -2 C 2.225,4.958 0,2.734 0,0"
+               style="fill:#77b255;fill-opacity:1;fill-rule:nonzero;stroke:none"
+               id="path26"
+               inkscape:connector-curvature="0" />
+          </g>
+          <g
+             id="g28"
+             transform="translate(5,25)">
+            <path
+               d="M 0,0 H -2 C -2,5.514 2.486,10 8,10 V 8 C 3.589,8 0,4.411 0,0"
+               style="fill:#77b255;fill-opacity:1;fill-rule:nonzero;stroke:none"
+               id="path30"
+               inkscape:connector-curvature="0" />
+          </g>
+          <g
+             id="g32"
+             transform="translate(30,1)">
+            <path
+               d="M 0,0 V 2 C 3,2 5,4 5,7 H 7 C 7,3 4,0 0,0"
+               style="fill:#77b255;fill-opacity:1;fill-rule:nonzero;stroke:none"
+               id="path34"
+               inkscape:connector-curvature="0" />
+          </g>
+          <g
+             id="g36"
+             transform="translate(25,2.958)">
+            <path
+               d="m 0,0 v 2 c 4,0 8.042,4.042 8.042,8.042 h 2 C 10.042,4.042 6,0 0,0"
+               style="fill:#77b255;fill-opacity:1;fill-rule:nonzero;stroke:none"
+               id="path38"
+               inkscape:connector-curvature="0" />
+          </g>
+        </g>
+      </g>
     </g>
   </g>
   <g

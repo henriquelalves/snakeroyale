@@ -18,7 +18,7 @@ class SceneMenu extends Phaser.Scene {
         // Facebook login variable TODO: Should be global!
         this.fb_is_logged_in = false;
         window.FB.getLoginStatus(function (response) {
-            if (response === "connected") {
+            if (response.status === "connected") {
                 that.fb_is_logged_in = true;
             }
         })
@@ -35,6 +35,8 @@ class SceneMenu extends Phaser.Scene {
         this.statisticsButton.setScale((window.innerWidth * 0.4) / this.playButton.list[0].width)
         this.customizeButton = new CustomButton(this, window.innerWidth * 0.5, window.innerHeight * 0.8, ['menu', 'customize_button'], ['menu', 'button_shadow'], this.onCustomizeButton, this);
         this.customizeButton.setScale((window.innerWidth * 0.4) / this.playButton.list[0].width)
+        this.logoutButton = new CustomButton(this, window.innerWidth * 0.85, window.innerHeight * 0.95, ['menu', 'logout_button'], ['menu', 'button_shadow'], this.onLogoutButton, this);
+        this.logoutButton.setScale((window.innerWidth * 0.2) / this.playButton.list[0].width);
 
         // Facebook popup
         this.fb_panel = this.add.sprite(window.innerWidth * 0.5, window.innerHeight * 0.5, 'menu', 'facebook_panel');
@@ -47,7 +49,7 @@ class SceneMenu extends Phaser.Scene {
         this.nah = new CustomButton(this, (window.innerWidth * 0.5) - this.fb_panel.width * min_scale * 0.25, (window.innerHeight * 0.5) + (this.fb_panel.height * min_scale * 0.35), ['menu', 'nah_button'], ['menu', 'button_shadow'], this.onFbReject, this);
         this.nah.setScale((this.fb_panel.width * min_scale * 0.4) / this.nah.list[0].width);
 
-        this.fb_popup = this.add.container(0,0,[this.fb_panel, this.ohyeah, this.nah]);
+        this.fb_popup = this.add.container(0, 0, [this.fb_panel, this.ohyeah, this.nah]);
         this.fb_popup.alpha = 0.0;
         this.fb_popup.x = window.innerWidth;
     }
@@ -59,12 +61,22 @@ class SceneMenu extends Phaser.Scene {
 
     popdown() {
         var that = this.fb_popup;
-        this.tweens.add({ targets: this.fb_popup, alpha: 0.0, ease: 'Power1', duration: 300, onComplete: function() {that.x = window.innerWidth;} });
+        this.tweens.add({ targets: this.fb_popup, alpha: 0.0, ease: 'Power1', duration: 300, onComplete: function () { that.x = window.innerWidth; } });
     }
 
     onFbAccept() {
+        var that = this;
+
         window.ga('send', 'event', 'Menu', 'FacebookAcceptButton');
-        window.FB.login();
+        window.FB.login(function(response) {
+            console.log(response);
+            that.registry.set('userID', response.authResponse.userID);
+        });
+        console.log('User id: ', this.registry.get('userID'));
+        
+        // TODO needs facebook callback
+        this.popdown();
+        this.fb_is_logged_in = true;
     }
 
     onFbReject() {
@@ -99,13 +111,20 @@ class SceneMenu extends Phaser.Scene {
         if (this.fb_is_logged_in === false) {
             this.popup();
         } else {
-            // do something
+            this.scene.start('SceneCustomization');
         }
 
         // console.log("Customized clicked");
         // window.FB.logout(function (response) {
         //     console.log("byebye");
         // });
+    }
+
+    onLogoutButton() {
+        window.FB.logout(function (response) {
+            console.log("byebye");
+        });
+        this.fb_is_logged_in = false;
     }
 
     update(delta, deltaTime) {
