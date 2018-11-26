@@ -12,33 +12,13 @@ app.use(express.static(__dirname + "/public"));
 
 // ================================== MONGODB =========================================
 // MongoDb setup
-const dburl = 'mongodb://admin:admin0@ds139243.mlab.com:39243/snakeroyale';
-const dbname = 'snakeroyale';
+const dburl = process.env.DBURL;
+const dbname = process.env.DBNAME;
 
 MongoClient.connect(dburl, (err, client) => {
     assert.equal(null, err);
     console.log("Connected successfully to the server");
-
-    const db = client.db(dbname);
-
-    insertDocuments(db, function () {
-        client.close();
-    });
 })
-
-const insertDocuments = function (db, callback) {
-    // Get users collection
-    const collection = db.collection('users');
-
-    // Insert some documents
-    collection.insertMany([
-        { fb_id: 1, skins: [1, 2, 3] }, { fb_id: 2, skins: [1, 2, 3] }, { fb_id: 3, skins: [1, 2, 3] }
-    ], function (err, result) {
-        assert.equal(err, null);
-        console.log("Inserted 3 documents into the collection");
-        callback(result);
-    });
-}
 
 var check_player_skin = function (id, callback) {
     MongoClient.connect(dburl, (err, client) => {
@@ -56,21 +36,11 @@ var check_player_skin = function (id, callback) {
             callback(docs);
         });
     })
-    // const db = client.db(dbname);
-
-    // // Get the documents collection
-    // const collection = db.collection('users');
-    // // Find some documents
-    // collection.find({ 'fb_id': id }).toArray(function (err, docs) {
-    //     console.log("Found the following records");
-    //     console.log(docs);
-    //     callback(docs);
-    // });
 }
 
 // ========================================== GAME =============================================
 // Rooms
-const MAX_PLAYERS = 1;
+const MAX_PLAYERS = 4;
 
 var rooms = [];
 
@@ -147,11 +117,6 @@ io.on('connection', function (socket) {
 })
 
 // ================================================ SERVER ====================================================
-
-// // HTTP page
-// app.get('/', function (req, res) {
-//     res.send('<h1>Hello world</h1>');
-// })
 
 // Check skins
 app.get('/userskin/:id', function (req, res) {
